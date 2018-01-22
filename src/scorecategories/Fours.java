@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Fours extends ScoreCategory {
     
-    private final String name = "Fours";
+    private final String name = "fours";
     private boolean available;
     private int score;
     

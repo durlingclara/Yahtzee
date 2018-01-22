@@ -18,10 +18,10 @@ import scorecategories.ScoreCategory;
  * @author Clara Durling
  */
 public class ScoreCard {
-    private static final Map<String, Integer> UPPERCARD = new HashMap();
-    private static final Set<String> TOP = UPPERCARD.keySet();
-    private static final Map<String, Integer> LOWERCARD = new HashMap();
-    private static final Set<String> BOTTOM = LOWERCARD.keySet();
+    private final Map<String, Integer> UPPERCARD = new HashMap();
+    private final Set<String> TOP = UPPERCARD.keySet();
+    private final Map<String, Integer> LOWERCARD = new HashMap();
+    private final Set<String> BOTTOM = LOWERCARD.keySet();
     private boolean topBonus = false;
     private final String playerName;
     private int preTotal;
@@ -51,13 +51,14 @@ public class ScoreCard {
         }
     }
     
+    //**************************************************************************
+    
     /**
      *
      * @param cat
      * @param score
-     * @return boolean
      */
-    public boolean inputScore(ScoreCategory cat, int score){
+    public void inputScore(ScoreCategory cat, int score){
         
         // Update score
         if(catOnTop(cat)){
@@ -75,11 +76,9 @@ public class ScoreCard {
         if(isBottomFull()){
             calculateBottom();
         }
-        
-        // Check if the card is full
-        boolean gameOver = (this.isTopFull() && this.isBottomFull());
-        return gameOver;
-    }
+    } // End public void inputScore(ScoreCategory, int)
+    
+    //**************************************************************************
     
     private boolean catOnTop(ScoreCategory cat){
         boolean present = false;
@@ -89,7 +88,9 @@ public class ScoreCard {
             }
         }
         return present;
-    }
+    } // End  private Boolean catOnTop(ScoreCategory);
+    
+    //**************************************************************************
     
     private void calculateTop(){
         this.preTotal = 0;
@@ -106,7 +107,9 @@ public class ScoreCard {
         } else {
             this.upperTotal = this.preTotal;
         }
-    }
+    } // End private void calculateTop()
+     
+    //**************************************************************************
     
     private void calculateBottom(){
         this.lowerTotal = 0;
@@ -115,7 +118,9 @@ public class ScoreCard {
             int nextScore = LOWERCARD.get(key);
             this.lowerTotal += nextScore;
         }
-    }
+    } // End private void calculateBottom()
+    
+    //**************************************************************************
     
     private boolean isTopFull(){
         boolean full = true;
@@ -129,7 +134,9 @@ public class ScoreCard {
         }
         
         return full;
-    }
+    } // End private boolean isTopFull()
+    
+    //**************************************************************************
     
     private boolean isBottomFull(){
         boolean full = true;
@@ -143,7 +150,19 @@ public class ScoreCard {
         }
         
         return full;
-    }
+    } // End private Boolean isBottomFull()
+    
+    //**************************************************************************
+
+    /**
+     *
+     * @return boolean
+     */
+    public boolean isFull(){
+        return (this.isBottomFull() && this.isTopFull());
+    } // End public boolean isFull()
+    
+    //**************************************************************************
     
     /**
      *
@@ -153,7 +172,9 @@ public class ScoreCard {
         // Calculate the final total from the game
         this.grandTotal = this.upperTotal + this.lowerTotal;
         return this.grandTotal;
-    }
+    } // End public Final int get Final Score
+    
+    //**************************************************************************
 
     @Override
     public String toString() {
@@ -175,27 +196,27 @@ public class ScoreCard {
         System.out.println("-1 indicates that a score has not yet been entered for a field.\n\n" +
                 "Score card for: " + playerName + "\n" 
                 + "UPPER SECTION\n"
-                + "Aces: " + this.UPPERCARD.get("Aces") + "\n" +
-                "Twos: " + this.UPPERCARD.get("Twos") + "\n" +
-                "Threes: " + this.UPPERCARD.get("Threes") + "\n" +
-                "Fours: " + this.UPPERCARD.get("Fours") + "\n" +
-                "Fives: " + this.UPPERCARD.get("Fives") + "\n" +
-                "Sixes: " + this.UPPERCARD.get("Sixes") + "\n" +
+                + "Aces: " + this.UPPERCARD.get("aces") + "\n" +
+                "Twos: " + this.UPPERCARD.get("twos") + "\n" +
+                "Threes: " + this.UPPERCARD.get("threes") + "\n" +
+                "Fours: " + this.UPPERCARD.get("fours") + "\n" +
+                "Fives: " + this.UPPERCARD.get("fives") + "\n" +
+                "Sixes: " + this.UPPERCARD.get("sixes") + "\n" +
                 "Total Score: " + this.preTotal + "\n" +
                 "BONUS (for scores 63 or higher): " + bonus + "\n" +
                 "UPPER TOTAL: " + this.upperTotal + "\n\n" +
                 "LOWER SECTION\n" +
-                "3 of a Kind: " + this.LOWERCARD.get("3ofaKind") + "\n" +
-                "4 of a Kind: " + this.LOWERCARD.get("4ofaKind") + "\n" +
-                "Full House: " + this.LOWERCARD.get("FullHouse") + "\n" +
-                "Small Straight: " + this.LOWERCARD.get("SmallStraight") + "\n" +
-                "Large Straight: " + this.LOWERCARD.get("LargeStraight") + "\n" +
-                "Yahtzee: " + this.LOWERCARD.get("Yahtzee") + "\n" +
-                "Chance: " + this.LOWERCARD.get("Chance") + "\n\n" +
+                "3 of a Kind: " + this.LOWERCARD.get("3 of a kind") + "\n" +
+                "4 of a Kind: " + this.LOWERCARD.get("4 of a kind") + "\n" +
+                "Full House: " + this.LOWERCARD.get("full house") + "\n" +
+                "Small Straight: " + this.LOWERCARD.get("small straight") + "\n" +
+                "Large Straight: " + this.LOWERCARD.get("large straight") + "\n" +
+                "Yahtzee: " + this.LOWERCARD.get("yahtzee") + "\n" +
+                "Chance: " + this.LOWERCARD.get("chance") + "\n\n" +
                 "UPPER TOTAL: " + this.upperTotal + "\n" +
                 "LOWER TOTAL: " + this.lowerTotal
         );
         return "Grand Total: " + total;
-    }
+    } // End public String toString()
     
-}
+} // End ScoreCard class

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class YahtzeeCard extends ScoreCategory {
     
-    private final String name = "Yahtzee";
+    private final String name = "yahtzee";
     private final boolean available = true;
     private int score;
 

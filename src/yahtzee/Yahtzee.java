@@ -27,45 +27,55 @@ public class Yahtzee {
          */
         
         boolean playAgain = true;
-        boolean badResponse;
-        String player1;
-        String player2;
-        String player3;
-        String player4;
-        String player6;
+        String[] playerName = {"Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6"};
         
         do{
             Scanner scan = new Scanner(System.in);
-            System.out.print("What is your name? ");
-            player1 = scan.next();
+            System.out.println("Right now, we can only accommodate one player games.");
+            System.out.print("How many players will be playing? ");
+            int players = scan.nextInt();
+            
+            
+            scan.nextLine();
+            for(int i = 0; i < players; i++){
+                System.out.print(playerName[i] + ", what is your name? ");
+                playerName[i] = scan.nextLine();
+            }
         
-            Game round = new Game(player1);
+            Game round = new Game(playerName, players);
             Play play = new Play();
             play.start(round);
-            int finalScore = round.getScore(1);
             
-            System.out.println("Your final score is: " + finalScore);
+            for(int i = 0; i < players; i++){
+                int finalScore = round.getScore(i);
+                System.out.println(playerName[i] + ", your final score is: " + finalScore);
+            }
+            
+            boolean badResponse = false;
             
             do{
                 System.out.println("Enter 'y' to play again or 'n' to quit.");
-                String choice = scan.next();
+                String choice = scan.next().toLowerCase().trim();
                 
-                if(choice.equals("y")){
-                    // Player wants a new game
-                    badResponse = false;
-                    playAgain = true;
-                } else if (choice.equals("n")){
-                    // Player doesn't want to play again
-                    badResponse = false;
-                    playAgain = false;
-                } else {
-                    // Player has entered
-                    badResponse = true;
+                switch (choice) {
+                    case "y":
+                        // Player wants a new game
+                        playAgain = true;
+                        break;
+                    case "n":
+                        // Player doesn't want to play again
+                        playAgain = false;
+                        break;
+                    default:
+                        // Player has entered something non-compliant
+                        badResponse = true;
+                        break;
                 }
+                
             } while(badResponse);
             
-        } while(playAgain);
+        } while(playAgain); 
         
-    }
+    } // End main method
     
-}
+} // End class Yahtzee

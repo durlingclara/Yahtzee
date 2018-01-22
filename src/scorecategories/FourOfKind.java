@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class FourOfKind extends ScoreCategory {
     
-    private final String name = "4ofaKind";
+    private final String name = "4 of a kind";
     private boolean available;
     private int score;
 

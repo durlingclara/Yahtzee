@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 import scorecategories.ScoreCategory;
 
 /**
@@ -35,14 +34,10 @@ public class Play {
     public void start(Game round){
         
         boolean gameOver = false;
-        ScoreCategory turnCat;
-        int turnScore = 0;
+        cards = round.getScoreCards();
+        List<Map> playersScores = new ArrayList();
         
         Map<String, ScoreCategory> scores = new HashMap();
-        
-        cards = round.getScoreCards();
-        ScoreCard player1 = cards.get(0);
-        
         List<ScoreCategory> categories = round.getCategories();
         for(int i = 0; i < categories.size(); i++){
             ScoreCategory cat = categories.get(i);
@@ -50,32 +45,53 @@ public class Play {
             scores.put(name, cat);
         }
         
+        for(int i = 0; i < cards.size(); i++){
+            Map<String, ScoreCategory> playerScores = scores;
+            playersScores.add(playerScores);
+        }
+        
         /* This loop has the player take a turn and then choose a scoring for 
          * each turn until the game ends*/
         do{ // }while(!gameOver);
             
-            System.out.println(player1.toString());
-            System.out.println("-------------------------------------------------");
-            takeTurn();
-            turnCat = askCat(scores);
+            // Loops through players
+            for(int i = 0; i < cards.size(); i++){
+                ScoreCard playerCard = cards.get(i);
+                
+                // Only gives the player a turn if their card is not full
+                if(!playerCard.isFull()){
+                    System.out.println(playerCard.toString());
+                    System.out.println("-------------------------------------------------");
+                    takeTurn();
+                    ScoreCategory turnCat = askCat(playersScores.get(i));
             
-            List<Integer> die = new ArrayList();
-            die.add(D1.value());
-            die.add(D2.value());
-            die.add(D3.value());
-            die.add(D4.value());
-            die.add(D5.value());
+                    List<Integer> die = new ArrayList();
+                    die.add(D1.value());
+                    die.add(D2.value());
+                    die.add(D3.value());
+                    die.add(D4.value());
+                    die.add(D5.value());
             
-            turnScore = turnCat.scorer(die);
+                    int turnScore = turnCat.scorer(die);
+                    playerCard.inputScore(turnCat, turnScore);
+                }
+            }
             
-            gameOver = player1.inputScore(turnCat, turnScore);
-            
+            // Game is over unless one of the players hasn't filled their card
+            gameOver = true;
+            for(int i = 0; i < cards.size(); i++){
+                ScoreCard playerCard = cards.get(i);
+                if(!playerCard.isFull()){
+                    gameOver = false;
+                }
+            }
         }while(!gameOver);
     }
     
+    //**************************************************************************
+    
     private ScoreCategory askCat(Map<String, ScoreCategory> scores){
         String turnCategory;
-        String trash;
         ScoreCategory turnCat;
         boolean availCat = true;
         
@@ -84,12 +100,23 @@ public class Play {
                 
             System.out.println("Which score category would you like to count "
                 + "this category towards?");
-            System.out.print("(Be sure to type in the category name exactly as "
-                + "displayed on the card, ommitting spaces): ");
+            System.out.println("(Be sure to type in the category name exactly as "
+                + "spelled): ");
+            SCAN.nextLine();
             
-            turnCategory = SCAN.next();
+            
+            turnCategory = SCAN.nextLine().toLowerCase().trim();
             turnCat = scores.get(turnCategory);
-                
+            
+            try{
+                boolean canBeUsed = turnCat.getAvailability();
+            } catch(NullPointerException e){
+                System.out.print("That is not a valid score name, try again: ");
+                turnCategory = SCAN.nextLine().toLowerCase().trim();
+                turnCat = scores.get(turnCategory);
+                boolean canBeUsed = turnCat.getAvailability();
+            }
+            
             if(turnCat.getAvailability() == true){
                 availCat = true;
             } else if(turnCat.getAvailability() == false){
@@ -99,8 +126,12 @@ public class Play {
             }
                 
         } while(!availCat);
+        
         return turnCat;
-    }
+        
+    } // End private ScoreCategory askCat(Map<String, ScoreCategory> scores)
+    
+    //**************************************************************************
     
     private void takeTurn(){
         String ans = " ";

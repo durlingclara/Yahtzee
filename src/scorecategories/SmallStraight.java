@@ -18,7 +18,7 @@ public class SmallStraight extends ScoreCategory {
     
     // scorer doesn't work if there are two of a number in the middle of the straight
     
-    private final String name = "SmallStraight";
+    private final String name = "small straight";
     private boolean available;
     private int score;
 

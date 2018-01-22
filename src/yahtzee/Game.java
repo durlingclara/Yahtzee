@@ -39,149 +39,23 @@ public class Game {
     private List<ScoreCard> scoreCards = new ArrayList();
     
     //**************************************************************************
-    
+
     /**
      *
-     * @param player1
+     * @param playerName
+     * @param players
      */
-    public Game(String player1) {
+    public Game(String[] playerName, int players) {
         
         // Initialize score categories
         this.setUp();
         
-        // Initialize scoreCard
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        this.scoreCards.add(p1);
-    } // End constructor for one player
-    
-    //**************************************************************************
-
-    /**
-     *
-     * @param player1
-     * @param player2
-     */
-    public Game(String player1, String player2) {
-        
-        // Initialize score categories
-        this.setUp();
-        
-        // Initialize scorecards and put into list
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        ScoreCard p2 = new ScoreCard(player2, scores);
-        scoreCards.add(p1);
-        scoreCards.add(p2);
-    } // End constructor for two players
-    
-    //**************************************************************************
-
-    /**
-     *
-     * @param player1
-     * @param player2
-     * @param player3
-     */
-    public Game(String player1, String player2, String player3) {
-        
-        // Initialize score categories and die
-        this.setUp();
-        
-        // Initialize scorecards and put into list
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        ScoreCard p2 = new ScoreCard(player2, scores);
-        ScoreCard p3 = new ScoreCard(player3, scores);
-        scoreCards.add(p1);
-        scoreCards.add(p2);
-        scoreCards.add(p3);
-    } // End Constructor for three players
-    
-    //**************************************************************************
-
-    /**
-     *
-     * @param player1
-     * @param player2
-     * @param player3
-     * @param player4
-     */
-    public Game(String player1, String player2, String player3, String player4) {
-        
-        // Initialize score categories and die
-        this.setUp();
-        
-        // Initialize scorecards and put into list
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        ScoreCard p2 = new ScoreCard(player2, scores);
-        ScoreCard p3 = new ScoreCard(player3, scores);
-        ScoreCard p4 = new ScoreCard(player4, scores);
-        scoreCards.add(p1);
-        scoreCards.add(p2);
-        scoreCards.add(p3);
-        scoreCards.add(p4);
-    } // End constructor for four players
-    
-    //**************************************************************************
-
-    /**
-     *
-     * @param player1
-     * @param player2
-     * @param player3
-     * @param player4
-     * @param player5
-     */
-    public Game(String player1, String player2, String player3, String player4, 
-            String player5) {
-        
-        // Initialize score categories and die
-        this.setUp();
-        
-        // Initialize scorecards and put into list
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        ScoreCard p2 = new ScoreCard(player2, scores);
-        ScoreCard p3 = new ScoreCard(player3, scores);
-        ScoreCard p4 = new ScoreCard(player4, scores);
-        ScoreCard p5 = new ScoreCard(player5, scores);
-        scoreCards.add(p1);
-        scoreCards.add(p2);
-        scoreCards.add(p3);
-        scoreCards.add(p4);
-        scoreCards.add(p5);
-    } // End constructor for five players
-    
-    //**************************************************************************
-
-    /**
-     *
-     * @param player1
-     * @param player2
-     * @param player3
-     * @param player4
-     * @param player5
-     * @param player6
-     */
-    public Game(String player1, String player2, String player3, String player4, 
-            String player5, String player6) {
-        
-        // Initialize score categories and die
-        this.setUp();
-        
-        // Initialize scorecards and put into list
-        ScoreCard p1 = new ScoreCard(player1, scores);
-        ScoreCard p2 = new ScoreCard(player2, scores);
-        ScoreCard p3 = new ScoreCard(player3, scores);
-        ScoreCard p4 = new ScoreCard(player4, scores);
-        ScoreCard p5 = new ScoreCard(player5, scores);
-        ScoreCard p6 = new ScoreCard(player6, scores);
-        scoreCards.add(p1);
-        scoreCards.add(p2);
-        scoreCards.add(p3);
-        scoreCards.add(p4);
-        scoreCards.add(p5);
-        scoreCards.add(p6);
-    } // End constructor for 6 players
-    
-    // End of constructors
+        // Initialize scoreCards
+        for(int i = 0; i < players; i++){
+            ScoreCard player = new ScoreCard(playerName[i], scores);
+            this.scoreCards.add(player);
+        }
+    } // End constructor
     
     //**************************************************************************
     
@@ -240,7 +114,7 @@ public class Game {
     }
     
     public int getScore(int i){
-        ScoreCard player = scoreCards.get(i-1);
+        ScoreCard player = scoreCards.get(i);
         return player.getFinalScore();
     }
     

@@ -8,7 +8,6 @@
 package scorecategories;
 
 import java.util.List;
-import yahtzee.Dice;
 
 /**
  *
@@ -16,7 +15,7 @@ import yahtzee.Dice;
  */
 public class Chance extends ScoreCategory {
     
-    private final String name = "Chance";
+    private final String name = "chance";
     private boolean available;
     private int score;
 

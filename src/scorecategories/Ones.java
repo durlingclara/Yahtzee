@@ -14,7 +14,7 @@ import java.util.List;
  * @author Clara Durling
  */
 public class Ones extends ScoreCategory{
-    private final String name = "Aces";
+    private final String name = "aces";
     private int score;
     private boolean available;
     

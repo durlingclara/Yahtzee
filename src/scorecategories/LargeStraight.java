@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class LargeStraight extends ScoreCategory {
     
-    private final String name = "LargeStraight";
+    private final String name = "large straight";
     private boolean available;
     private int score;
 
@@ -39,7 +39,7 @@ public class LargeStraight extends ScoreCategory {
         } else {
             score = 0;
         }
-        available = false;
+        this.available = false;
         return score;
     }
     

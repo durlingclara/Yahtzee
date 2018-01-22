@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ThreeOfKind extends ScoreCategory {
     
-    private final String name = "3ofaKind";
+    private final String name = "3 of a kind";
     private boolean available = true;
     private int score;
 
