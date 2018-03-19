@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*******************************************************************************
+ * Play.java
+ * Clara Durling
+ * 
+ * This class
+ ******************************************************************************/
 package yahtzee;
 
 import java.util.ArrayList;
@@ -31,8 +32,12 @@ public class Play {
     }
     
     //**************************************************************************
-    
-    public void start(Game round){
+
+    /**
+     *
+     * @param round
+     */
+    public void start(Game round) {
         
         boolean gameOver = false;
         cards = round.getScoreCards();
@@ -40,13 +45,14 @@ public class Play {
         
         Map<String, ScoreCategory> scores = new HashMap();
         List<ScoreCategory> categories = round.getCategories();
-        for(int i = 0; i < categories.size(); i++){
+        
+        for(int i = 0; i < categories.size(); i++) {
             ScoreCategory cat = categories.get(i);
             String name = cat.getName();
             scores.put(name, cat);
         }
         
-        for(int i = 0; i < cards.size(); i++){
+        for(int i = 0; i < cards.size(); i++) {
             Map<String, ScoreCategory> playerScores = scores;
             playersScores.add(playerScores);
         }
@@ -92,7 +98,12 @@ public class Play {
     
     //**************************************************************************
     
-    private ScoreCategory askCat(Map<String, ScoreCategory> scores){
+    /**
+     * 
+     * @param scores
+     * @return 
+     */
+    private ScoreCategory askCat(Map<String, ScoreCategory> scores) {
         String turnCategory;
         ScoreCategory turnCat;
         boolean availCat = true;
@@ -135,7 +146,10 @@ public class Play {
     
     //**************************************************************************
     
-    private void takeTurn(){
+    /**
+     * 
+     */
+    private void takeTurn() {
         
         // Roll one
         D1.roll();
@@ -168,53 +182,37 @@ public class Play {
     
     //**************************************************************************
     
-    private void rollDie(){
+    /**
+     * 
+     */
+    private void rollDie() {
         String ans = " ";
-       
-       System.out.print("Roll Dice 1? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D1.roll();
+        List<Dice> die = new ArrayList();
+        die.add(D1);
+        die.add(D2);
+        die.add(D3);
+        die.add(D4);
+        die.add(D5);
+        
+        for(int i = 0; i < 5; i++){
+            System.out.print("Roll Dice " + (i+1) + " ?");
+            ans = SCAN.next();
+            if(ans.equals("n")){
+                //do nothing
+            } else {
+                Dice d = die.get(i);
+                d.roll();
+            }
         }
         
-        System.out.print("Roll Dice 2? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D2.roll();
-        }
-        
-        System.out.print("Roll Dice 3? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D3.roll();
-        }
-        
-        System.out.print("Roll Dice 4? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D4.roll();
-        }
-        
-        System.out.print("Roll Dice 5? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D5.roll();
-        }  
     } // End private void rollDie()
     
     //**************************************************************************
     
-    private void displayRoll(){
+    /**
+     * 
+     */
+    private void displayRoll() {
         System.out.println("    Dice 1: " + D1.value());
         System.out.println("    Dice 2: " + D2.value());
         System.out.println("    Dice 3: " + D3.value());
