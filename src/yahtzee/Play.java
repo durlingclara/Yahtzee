@@ -18,7 +18,6 @@ import scorecategories.ScoreCategory;
  */
 public class Play {
     
-    
     private final Dice D1 = new Dice();
     private final Dice D2 = new Dice();
     private final Dice D3 = new Dice();
@@ -30,6 +29,8 @@ public class Play {
     public Play() {
         
     }
+    
+    //**************************************************************************
     
     public void start(Game round){
         
@@ -85,6 +86,7 @@ public class Play {
                     gameOver = false;
                 }
             }
+            
         }while(!gameOver);
     }
     
@@ -134,7 +136,7 @@ public class Play {
     //**************************************************************************
     
     private void takeTurn(){
-        String ans = " ";
+        
         // Roll one
         D1.roll();
         D2.roll();
@@ -146,63 +148,30 @@ public class Play {
         System.out.println("When answering as to whether you would like a dice "
                 + "rolled on your next turn, type 'y' to roll it or 'n' to keep it");
         System.out.println("Roll 1:");
-        System.out.println("    Dice 1: " + D1.value());
-        System.out.println("    Dice 2: " + D2.value());
-        System.out.println("    Dice 3: " + D3.value());
-        System.out.println("    Dice 4: " + D4.value());
-        System.out.println("    Dice 5: " + D5.value() + "\n");
+        displayRoll();
         
         // Roll two
-        System.out.print("Roll Dice 1? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D1.roll();
-        }
-        
-        System.out.print("Roll Dice 2? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D2.roll();
-        }
-        
-        System.out.print("Roll Dice 3? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D3.roll();
-        }
-        
-        System.out.print("Roll Dice 4? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D4.roll();
-        }
-        
-        System.out.print("Roll Dice 5? ");
-        ans = SCAN.next();
-        if(ans.equals("n")){
-            //do nothing
-        } else {
-            D5.roll();
-        }
+        rollDie();
         
         // Display roll two
         System.out.println("Roll 2:");
-        System.out.println("    Dice 1: " + D1.value());
-        System.out.println("    Dice 2: " + D2.value());
-        System.out.println("    Dice 3: " + D3.value());
-        System.out.println("    Dice 4: " + D4.value());
-        System.out.println("    Dice 5: " + D5.value() + "\n");
+        displayRoll();
         
         // Roll three
-        System.out.print("Roll Dice 1? ");
+        rollDie();
+        
+        // Display roll three
+        System.out.println("\nRoll 3:");
+        displayRoll();
+        
+    } // End method private void takeTurn()
+    
+    //**************************************************************************
+    
+    private void rollDie(){
+        String ans = " ";
+       
+       System.out.print("Roll Dice 1? ");
         ans = SCAN.next();
         if(ans.equals("n")){
             //do nothing
@@ -240,15 +209,17 @@ public class Play {
             //do nothing
         } else {
             D5.roll();
-        }
-        
-        // Display roll three
-        System.out.println("\nRoll 3:");
+        }  
+    } // End private void rollDie()
+    
+    //**************************************************************************
+    
+    private void displayRoll(){
         System.out.println("    Dice 1: " + D1.value());
         System.out.println("    Dice 2: " + D2.value());
         System.out.println("    Dice 3: " + D3.value());
         System.out.println("    Dice 4: " + D4.value());
         System.out.println("    Dice 5: " + D5.value() + "\n");
-        
-    } // End method private void takeTurn()
-}
+    } // End private void displayRoll()
+    
+} // End class Play
